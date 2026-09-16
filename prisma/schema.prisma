@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TicketStatus {
+  PARKED
+  PAID
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+  PIX
+}
+
+model Customer {
+  id         String   @id @default(uuid())
+  name       String   @db.VarChar(100)
+  phone      String?  @db.VarChar(20)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  tickets    Ticket[]
+
+  @@map("customers")
+}
+
+model Ticket {
+  id             String         @id @default(uuid())
+  customer_id    String
+  vehicle_model  String         @db.VarChar(50)
+  license_plate  String         @db.VarChar(10)
+  check_in       DateTime       @default(now())
+  check_out      DateTime?
+  total_amount   Decimal?       @db.Decimal(10, 2)
+  payment_method PaymentMethod?
+  status         TicketStatus   @default(PARKED)
+  created_at     DateTime       @default(now())
+  updated_at     DateTime       @updatedAt
+
+  customer       Customer       @relation(fields: [customer_id], references: [id], onDelete: Restrict)
+
+  @@map("tickets")
+}

@@ -21,7 +21,7 @@ enum PaymentMethod {
 model Customer {
   id         String   @id @default(uuid())
   name       String   @db.VarChar(100)
-  phone      String?  @db.VarChar(20)
+  phone      String?  @unique @db.VarChar(20)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 

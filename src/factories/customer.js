@@ -1,7 +1,16 @@
-import { CreateCustomerController } from '../controllers/index.js';
-import { PostgresCreateCustomerRepository } from '../repositories/index.js';
-import { PostgresGetCustomerByPhoneRepository } from '../repositories/index.js';
-import { CreateCustomerUseCase } from '../use-cases/index.js';
+import {
+  CreateCustomerController,
+  GetCustomersController,
+} from '../controllers/index.js';
+import {
+  PostgresCreateCustomerRepository,
+  PostgresGetCustomerByPhoneRepository,
+  PostgresGetCustomersRepository,
+} from '../repositories/index.js';
+import {
+  CreateCustomerUseCase,
+  GetCustomersUseCase,
+} from '../use-cases/index.js';
 
 export const makeCreateCustomerController = () => {
   const getCustomerByPhone = new PostgresGetCustomerByPhoneRepository();
@@ -14,4 +23,13 @@ export const makeCreateCustomerController = () => {
     createCustomerUseCase,
   );
   return createCustomerController;
+};
+
+export const makeGetCustomersController = () => {
+  const getCustomersRepository = new PostgresGetCustomersRepository();
+  const getCustomersUseCase = new GetCustomersUseCase(getCustomersRepository);
+  const getCustomersController = new GetCustomersController(
+    getCustomersUseCase,
+  );
+  return getCustomersController;
 };

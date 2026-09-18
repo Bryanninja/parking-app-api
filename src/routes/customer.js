@@ -1,14 +1,22 @@
 import { Router } from 'express';
-import { makeCreateCustomerController } from '../factories/customer.js';
+import {
+  makeCreateCustomerController,
+  makeGetCustomersController,
+} from '../factories/customer.js';
+import { app } from '../app.js';
 
 const customersRouter = Router();
 
-customersRouter.post('/', async (request, response) => {
+customersRouter.post('/', async (req, res) => {
   const createCustomerController = makeCreateCustomerController();
+  const { statusCode, body } = await createCustomerController.execute(req);
+  return res.status(statusCode).json(body);
+});
 
-  const { statusCode, body } = await createCustomerController.execute(request);
-
-  return response.status(statusCode).json(body);
+customersRouter.get('/', async (req, res) => {
+  const getCustomersController = makeGetCustomersController();
+  const { statusCode, body } = await getCustomersController.execute();
+  res.status(statusCode).json(body);
 });
 
 export { customersRouter };

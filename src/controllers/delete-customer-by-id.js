@@ -19,10 +19,13 @@ export class DeleteCustomerByIdController {
 
       return ok(deletedCustomer);
     } catch (error) {
-      console.error(error);
+      if (error instanceof z.ZodError) {
+        return badRequest({ message: error.issues[0].message });
+      }
       if (error instanceof CustomerNotFoundError) {
         return badRequest({ message: error.message });
       }
+      console.error(error);
       return serverError();
     }
   }

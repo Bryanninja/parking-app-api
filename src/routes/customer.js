@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   makeCreateCustomerController,
+  makeDeleteCustomerByIdController,
   makeGetCustomersController,
 } from '../factories/customer.js';
 import { app } from '../app.js';
@@ -16,6 +17,12 @@ customersRouter.post('/', async (req, res) => {
 customersRouter.get('/', async (req, res) => {
   const getCustomersController = makeGetCustomersController();
   const { statusCode, body } = await getCustomersController.execute();
+  res.status(statusCode).json(body);
+});
+
+customersRouter.delete('/:customerId', async (req, res) => {
+  const deleteCustomerByIdController = makeDeleteCustomerByIdController();
+  const { statusCode, body } = await deleteCustomerByIdController.execute(req);
   res.status(statusCode).json(body);
 });
 

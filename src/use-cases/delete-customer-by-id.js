@@ -6,11 +6,11 @@ export class DeleteCustomerByIdUseCase {
     this.getCustomerByIdRepository = getCustomerByIdRepository;
   }
   async execute(customerId) {
-    //verifica se o usario existe
-    const customerWasNotFound =
-      await this.getCustomerByIdRepository.execute(customerId);
-    if (customerWasNotFound) throw new CustomerNotFoundError(customerId);
+    const customer = await this.getCustomerByIdRepository.execute(customerId);
 
+    if (!customer) {
+      throw new CustomerNotFoundError(customerId);
+    }
     const deletedCustomer =
       await this.deleteCustomerByIdRepository.execute(customerId);
     return deletedCustomer;

@@ -17,5 +17,5 @@ export const createCustomerSchema = z.object({
 });
 
 export const deleteCustomerParamsSchema = z.object({
-  id: z.uuid({ error: 'The Customer id has to be a valid UUID.' }),
+  customerId: z.uuid({ error: 'The Customer id has to be a valid UUID.' }),
 });

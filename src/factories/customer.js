@@ -2,6 +2,7 @@ import {
   CreateCustomerController,
   DeleteCustomerByIdController,
   GetCustomersController,
+  UpdateCustomerByIdController,
 } from '../controllers/index.js';
 import {
   PostgresCreateCustomerRepository,
@@ -9,11 +10,13 @@ import {
   PostgresGetCustomerByIdRepository,
   PostgresGetCustomerByPhoneRepository,
   PostgresGetCustomersRepository,
+  PostgresUpdateCustomerByIdRepository,
 } from '../repositories/index.js';
 import {
   CreateCustomerUseCase,
   DeleteCustomerByIdUseCase,
   GetCustomersUseCase,
+  UpdateCustomerByIdUseCase,
 } from '../use-cases/index.js';
 
 export const makeCreateCustomerController = () => {
@@ -50,4 +53,18 @@ export const makeDeleteCustomerByIdController = () => {
     deleteCustomerByIdUseCase,
   );
   return deleteCustomerByIdController;
+};
+
+export const makeUpdateCustomerByIdController = () => {
+  const getCustomerByIdRepository = new PostgresGetCustomerByIdRepository();
+  const updateCustomerByIdRepository =
+    new PostgresUpdateCustomerByIdRepository();
+  const updateCustomerByIdUseCase = new UpdateCustomerByIdUseCase(
+    updateCustomerByIdRepository,
+    getCustomerByIdRepository,
+  );
+  const updateCustomerByIdController = new UpdateCustomerByIdController(
+    updateCustomerByIdUseCase,
+  );
+  return updateCustomerByIdController;
 };

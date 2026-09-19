@@ -3,8 +3,8 @@ import {
   makeCreateCustomerController,
   makeDeleteCustomerByIdController,
   makeGetCustomersController,
+  makeUpdateCustomerByIdController,
 } from '../factories/customer.js';
-import { app } from '../app.js';
 
 const customersRouter = Router();
 
@@ -23,6 +23,12 @@ customersRouter.get('/', async (req, res) => {
 customersRouter.delete('/:customerId', async (req, res) => {
   const deleteCustomerByIdController = makeDeleteCustomerByIdController();
   const { statusCode, body } = await deleteCustomerByIdController.execute(req);
+  res.status(statusCode).json(body);
+});
+
+customersRouter.patch('/:customerId', async (req, res) => {
+  const updateCustomerByIdController = makeUpdateCustomerByIdController();
+  const { statusCode, body } = await updateCustomerByIdController.execute(req);
   res.status(statusCode).json(body);
 });
 

@@ -1,5 +1,8 @@
 import z from 'zod';
-import { CustomerNotFoundError } from '../errors/customer.js';
+import {
+  CustomerAlredyExistError,
+  CustomerNotFoundError,
+} from '../errors/customer.js';
 import { badRequest, ok, serverError } from '../helpers/http.js';
 import {
   updateCustomerSchema,
@@ -33,6 +36,10 @@ export class UpdateCustomerByIdController {
         return badRequest({ message: error.issues[0].message });
       }
       if (error instanceof CustomerNotFoundError) {
+        return badRequest({ message: error.message });
+      }
+
+      if (error instanceof CustomerAlredyExistError) {
         return badRequest({ message: error.message });
       }
       console.error(error);

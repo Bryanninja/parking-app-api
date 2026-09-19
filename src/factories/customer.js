@@ -56,12 +56,15 @@ export const makeDeleteCustomerByIdController = () => {
 };
 
 export const makeUpdateCustomerByIdController = () => {
+  const getCustomerByPhoneRepository =
+    new PostgresGetCustomerByPhoneRepository();
   const getCustomerByIdRepository = new PostgresGetCustomerByIdRepository();
   const updateCustomerByIdRepository =
     new PostgresUpdateCustomerByIdRepository();
   const updateCustomerByIdUseCase = new UpdateCustomerByIdUseCase(
     updateCustomerByIdRepository,
     getCustomerByIdRepository,
+    getCustomerByPhoneRepository,
   );
   const updateCustomerByIdController = new UpdateCustomerByIdController(
     updateCustomerByIdUseCase,

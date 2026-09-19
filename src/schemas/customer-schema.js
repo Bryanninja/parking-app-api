@@ -6,12 +6,15 @@ export const createCustomerSchema = z.object({
       error: 'Name is required.',
     })
     .trim()
-    .min(1),
+    .min(2, {
+      error: 'Name must have at least 2 characters.',
+    }),
   phone: z
     .string()
     .trim()
-    .min(1, {
-      error: 'Phone not be null.',
+    .transform((val) => val.replace(/\D/g, ''))
+    .refine((val) => /^\d{10,11}$/.test(val), {
+      message: 'Phone number must include DDD and 10 or 11 digits.',
     })
     .optional(),
 });
@@ -25,12 +28,17 @@ export const updateCustomerSchema = z
     name: z
       .string()
       .trim()
-      .min(1, { message: 'Name not be null .' })
+      .min(2, {
+        message: 'Name must have at least 2 characters.',
+      })
       .optional(),
     phone: z
       .string()
       .trim()
-      .min(1, { message: 'Phone not be null.' })
+      .transform((val) => val.replace(/\D/g, ''))
+      .refine((val) => /^\d{10,11}$/.test(val), {
+        message: 'Phone number must include DDD and 10 or 11 digits.',
+      })
       .optional(),
   })
   .refine((data) => Object.keys(data).length > 0, {

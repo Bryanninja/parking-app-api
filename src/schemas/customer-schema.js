@@ -42,7 +42,7 @@ export const updateCustomerSchema = z
       .optional(),
   })
   .refine((data) => Object.keys(data).length > 0, {
-    error: 'At least a field must be informed.',
+    error: 'At least one field must be informed.',
   });
 export const updateCustomerParamsSchema = z.object({
   customerId: z.uuid({ message: 'The Customer id has to be a valid UUID.' }),

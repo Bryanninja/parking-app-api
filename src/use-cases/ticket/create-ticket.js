@@ -13,8 +13,8 @@ export class CreateTicketUseCase {
       getParkedTicketByLicensePlateRepository;
   }
   async execute(ticketParams) {
-    const customerId = ticketParams.customerId;
-    const licensePlate = ticketParams.licensePlate;
+    const customerId = ticketParams.customer_id;
+    const licensePlate = ticketParams.license_plate;
 
     const customerExist =
       await this.getCustomerByIdRepository.execute(customerId);
@@ -23,10 +23,9 @@ export class CreateTicketUseCase {
 
     const vehicleAlreadyParked =
       await this.getParkedTicketByLicensePlateRepository.execute(licensePlate);
-    if (!vehicleAlreadyParked)
-      throw new VehicleAlreadyParkedError(licensePlate);
+    if (vehicleAlreadyParked) throw new VehicleAlreadyParkedError(licensePlate);
 
-    const ticket = this.createTicketRepository.execute(ticketParams);
+    const ticket = await this.createTicketRepository.execute(ticketParams);
     return ticket;
   }
 }

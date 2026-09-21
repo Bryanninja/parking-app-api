@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { customersRouter } from './routes/customer.js';
+import { ticketsRouter } from './routes/ticket.js';
 
 const app = express();
 
@@ -12,5 +13,6 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/api/customers', customersRouter);
+app.use('/api/tickets', ticketsRouter);
 
 export { app };

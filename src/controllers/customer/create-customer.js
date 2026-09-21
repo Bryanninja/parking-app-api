@@ -1,7 +1,7 @@
 import z from 'zod';
-import { CustomerAlredyExistError } from '../errors/customer.js';
-import { badRequest, created, serverError } from '../helpers/http.js';
-import { createCustomerSchema } from '../schemas/customer-schema.js';
+import { CustomerAlredyExistError } from '../../errors/customer.js';
+import { badRequest, created, serverError } from '../../helpers/http.js';
+import { createCustomerSchema } from '../../schemas/customer-schema.js';
 
 export class CreateCustomerController {
   constructor(createCustomerUseCase) {

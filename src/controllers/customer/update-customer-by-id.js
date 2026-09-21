@@ -2,12 +2,12 @@ import z from 'zod';
 import {
   CustomerAlredyExistError,
   CustomerNotFoundError,
-} from '../errors/customer.js';
-import { badRequest, ok, serverError } from '../helpers/http.js';
+} from '../../errors/customer.js';
+import { badRequest, ok, serverError } from '../../helpers/http.js';
 import {
   updateCustomerSchema,
   updateCustomerParamsSchema,
-} from '../schemas/customer-schema.js';
+} from '../../schemas/customer-schema.js';
 
 export class UpdateCustomerByIdController {
   constructor(updateCustomerByIdUseCase) {

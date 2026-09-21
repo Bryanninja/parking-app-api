@@ -1,4 +1,4 @@
-import { CustomerAlredyExistError } from '../errors/customer.js';
+import { CustomerAlredyExistError } from '../../errors/customer.js';
 
 export class CreateCustomerUseCase {
   constructor(createCustomerRepository, getCustomerByPhoneRepository) {

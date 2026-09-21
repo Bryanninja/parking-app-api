@@ -1,4 +1,4 @@
-import { CustomerNotFoundError } from '../errors/customer.js';
+import { CustomerNotFoundError } from '../../errors/customer.js';
 
 export class DeleteCustomerByIdUseCase {
   constructor(deleteCustomerByIdRepository, getCustomerByIdRepository) {

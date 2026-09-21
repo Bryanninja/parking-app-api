@@ -1,4 +1,4 @@
-import { ok, serverError } from '../helpers/http.js';
+import { ok, serverError } from '../../helpers/http.js';
 
 export class GetCustomersController {
   constructor(getCustomersUseCase) {

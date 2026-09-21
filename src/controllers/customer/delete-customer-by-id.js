@@ -1,7 +1,7 @@
 import z from 'zod';
-import { CustomerNotFoundError } from '../errors/customer.js';
-import { badRequest, ok, serverError } from '../helpers/http.js';
-import { deleteCustomerParamsSchema } from '../schemas/customer-schema.js';
+import { CustomerNotFoundError } from '../../errors/customer.js';
+import { badRequest, ok, serverError } from '../../helpers/http.js';
+import { deleteCustomerParamsSchema } from '../../schemas/customer-schema.js';
 
 export class DeleteCustomerByIdController {
   constructor(deleteCustomerByIdUseCase) {

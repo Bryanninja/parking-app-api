@@ -1,7 +1,7 @@
 import {
   CustomerAlredyExistError,
   CustomerNotFoundError,
-} from '../errors/customer.js';
+} from '../../errors/customer.js';
 
 export class UpdateCustomerByIdUseCase {
   constructor(

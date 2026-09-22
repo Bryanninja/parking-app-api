@@ -4,3 +4,10 @@ export class VehicleAlreadyParkedError extends Error {
     this.name = 'VehicleAlreadyParkedError';
   }
 }
+
+export class TicketNotFoundError extends Error {
+  constructor(ticketId) {
+    super(`Ticket with id: ${ticketId} not found.`);
+    this.name = 'TicketNotFoundError';
+  }
+}

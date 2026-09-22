@@ -1,10 +1,14 @@
-import { CreateTicketController } from '../controllers/index.js';
+import {
+  CreateTicketController,
+  GetTicketsController,
+} from '../controllers/index.js';
 import {
   PostgresCreateTicketRepository,
   PostgresGetCustomerByIdRepository,
+  PostgresGetParkedTicketByLicensePlateRepository,
+  PostgresGetTicketsRepository,
 } from '../repositories/index.js';
-import { PostgresGetParkedTicketByLicensePlateRepository } from '../repositories/ticket/get-parked-ticket-by-license-plate.js';
-import { CreateTicketUseCase } from '../use-cases/index.js';
+import { CreateTicketUseCase, GetTicketsUseCase } from '../use-cases/index.js';
 
 export const makeCreateTicketController = () => {
   const getParkedTicketByLicensePlateRepository =
@@ -20,4 +24,11 @@ export const makeCreateTicketController = () => {
     createTicketUseCase,
   );
   return createTicketController;
+};
+
+export const makeGetTicketsController = () => {
+  const getTicketsRepository = new PostgresGetTicketsRepository();
+  const getTicketsUseCase = new GetTicketsUseCase(getTicketsRepository);
+  const getTicketsController = new GetTicketsController(getTicketsUseCase);
+  return getTicketsController;
 };

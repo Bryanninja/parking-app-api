@@ -8,4 +8,5 @@ export * from './customer/update-customer-by-id.js';
 
 //ticket
 export * from './ticket/create-ticket.js';
+export * from './ticket/get-parked-ticket-by-license-plate.js';
 export * from './ticket/get-tickets.js';

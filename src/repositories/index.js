@@ -10,3 +10,4 @@ export * from './customer/update-customer-by-id.js';
 export * from './ticket/create-ticket.js';
 export * from './ticket/get-parked-ticket-by-license-plate.js';
 export * from './ticket/get-tickets.js';
+export * from './ticket/update-ticket-by-id.js';

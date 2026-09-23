@@ -1,6 +1,7 @@
 import {
   TicketNotFoundError,
   TicketAlreadyPaidError,
+  PaymentMethodRequiredError,
 } from '../../errors/ticket.js';
 
 const HOURLY_RATE = 10.0; // R$ 10,00 por hora
@@ -49,13 +50,22 @@ export class CheckOutTicketUseCase {
 
       totalAmount = billedHours * HOURLY_RATE;
     }
+
+    // Se o carro TEM que pagar (passou de R$ 0) e NÃO mandou método de pagamento:
+    if (totalAmount > 0 && !paymentMethod) {
+      throw new PaymentMethodRequiredError();
+    }
+
+    // Se deu R$ 0, o payment_method pode ser null tranquilamente!
+    const finalPaymentMethod = totalAmount === 0 ? null : paymentMethod;
+
     // 5. Atualiza o ticket no banco com os dados finais
     const finalizedTicket = await this.updateTicketByIdRepository.execute(
       ticketId,
       {
         check_out: checkOutDate,
         total_amount: totalAmount,
-        payment_method: paymentMethod,
+        payment_method: finalPaymentMethod,
         status: 'PAID',
       },
     );

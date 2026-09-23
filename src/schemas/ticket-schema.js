@@ -29,7 +29,9 @@ export const checkOutTicketParamsSchema = z.object({
 });
 
 export const checkOutTicketSchema = z.object({
-  payment_method: z.enum(['CASH', 'CARD', 'PIX'], {
-    error: 'The payment methods allowed are: CASH, CARD or PIX.',
-  }),
+  payment_method: z
+    .enum(['CASH', 'CARD', 'PIX'], {
+      error: 'The payment methods allowed are: CASH, CARD or PIX.',
+    })
+    .optional(),
 });

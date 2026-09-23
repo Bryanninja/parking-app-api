@@ -1,5 +1,6 @@
 import z from 'zod';
 import {
+  PaymentMethodRequiredError,
   TicketAlreadyPaidError,
   TicketNotFoundError,
 } from '../../errors/ticket.js';
@@ -30,6 +31,10 @@ export class CheckOutTicketController {
     } catch (error) {
       if (error instanceof z.ZodError) {
         return badRequest({ message: error.issues[0].message });
+      }
+
+      if (error instanceof PaymentMethodRequiredError) {
+        return badRequest({ message: error.message });
       }
       if (error instanceof TicketNotFoundError) {
         return badRequest({ message: error.message });

@@ -1,7 +1,7 @@
 import z from 'zod';
 import { VehicleAlreadyParkedError } from '../../errors/ticket.js';
 import { badRequest, created, serverError } from '../../helpers/http.js';
-import { createTicketSchema } from '../../schemas/ticket.js';
+import { createTicketSchema } from '../../schemas/ticket-schema.js';
 import { CustomerNotFoundError } from '../../errors/customer.js';
 
 export class CreateTicketController {

@@ -25,11 +25,11 @@ export const createTicketSchema = z.object({
 });
 
 export const checkOutTicketParamsSchema = z.object({
-  id: z.uuid({ error: 'The id has to be a valid UUID.' }),
+  ticketId: z.uuid({ error: 'The id has to be a valid UUID.' }),
 });
 
 export const checkOutTicketSchema = z.object({
-  payment_method: z.enum('CASH', 'CARD', 'PIX', {
-    error: 'The payment methods allowed is: CASH, CARD or PIX',
+  payment_method: z.enum(['CASH', 'CARD', 'PIX'], {
+    error: 'The payment methods allowed are: CASH, CARD or PIX.',
   }),
 });

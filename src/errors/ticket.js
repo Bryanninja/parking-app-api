@@ -18,3 +18,10 @@ export class TicketAlreadyPaidError extends Error {
     this.name = 'TicketAlreadyPaidError';
   }
 }
+
+export class PaymentMethodRequiredError extends Error {
+  constructor(message = 'A payment method is required for paid tickets.') {
+    super(message);
+    this.name = 'PaymentMethodRequiredError';
+  }
+}

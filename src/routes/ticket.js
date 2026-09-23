@@ -19,7 +19,7 @@ ticketsRouter.get('/', async (req, res) => {
   res.status(statusCode).json(body);
 });
 
-ticketsRouter.patch('/:ticketId', async (req, res) => {
+ticketsRouter.patch('/:ticketId/checkout', async (req, res) => {
   const checkOutTicketController = makeCheckOutTicketController();
   const { statusCode, body } = await checkOutTicketController.execute(req);
   res.status(statusCode).json(body);

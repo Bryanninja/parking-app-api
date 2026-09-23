@@ -32,26 +32,24 @@ export class CheckOutTicketUseCase {
       checkOutDate.getTime() - ticket.check_in.getTime();
     const diffInMinutes = Math.floor(diffInMilliseconds / (1000 * 60));
 
-    // 1. Ficou até 15 minutos no total? (Desistência)
-    if (diffInMinutes <= TOLERANCE_MINUTES) {
-      return 0; // Grátis!
+    let totalAmount = 0;
+
+    // Só calcula e cobra horas se passou da tolerância inicial de 15 minutos:
+    if (diffInMinutes > TOLERANCE_MINUTES) {
+      const fullHours = Math.floor(diffInMinutes / 60);
+      const remainingMinutes = diffInMinutes % 60;
+
+      let billedHours = fullHours;
+
+      if (fullHours === 0) {
+        billedHours = 1;
+      } else if (remainingMinutes > TOLERANCE_MINUTES) {
+        billedHours += 1;
+      }
+
+      totalAmount = billedHours * HOURLY_RATE;
     }
-
-    // 2. Horas cheias e minutos que sobraram
-    const fullHours = Math.floor(diffInMinutes / 60); // Ex: 75 min = 1 hora cheia
-    const remainingMinutes = diffInMinutes % 60; // Ex: 75 % 60 = 15 minutos restantes
-
-    let billedHours = fullHours;
-    // Se ficou menos de 1 hora inteira (ex: 40 minutos), cobra 1 hora:
-    if (fullHours === 0) {
-      billedHours = 1;
-    } else if (remainingMinutes > TOLERANCE_MINUTES) {
-      // Se passou dos 15 minutos da próxima hora, aí sim cobra mais 1 hora!
-      billedHours += 1;
-    }
-    const totalAmount = billedHours * HOURLY_RATE;
-
-    // 6. Atualiza o ticket no banco com os dados finais
+    // 5. Atualiza o ticket no banco com os dados finais
     const finalizedTicket = await this.updateTicketByIdRepository.execute(
       ticketId,
       {
@@ -61,7 +59,6 @@ export class CheckOutTicketUseCase {
         status: 'PAID',
       },
     );
-
     return finalizedTicket;
   }
 }

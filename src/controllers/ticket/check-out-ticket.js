@@ -7,7 +7,7 @@ import { badRequest, ok, serverError } from '../../helpers/http.js';
 import {
   checkOutTicketParamsSchema,
   checkOutTicketSchema,
-} from '../../schemas/ticket.js';
+} from '../../schemas/ticket-schema.js';
 
 export class CheckOutTicketController {
   constructor(checkOutTicketUseCase) {
@@ -16,16 +16,14 @@ export class CheckOutTicketController {
 
   async execute(httpRequest) {
     try {
-      const { ticketId } = httpRequest.params;
-      const paymentMethod = httpRequest.body.payment_method;
-
       //validação com zod, params and body
-      const validTicketId = checkOutTicketParamsSchema.parse(ticketId);
-      const validPaymentMethod = checkOutTicketSchema.parse(paymentMethod);
+      const { ticketId } = checkOutTicketParamsSchema.parse(httpRequest.params);
+      const { payment_method } = checkOutTicketSchema.parse(httpRequest.body);
 
+      // 2. Chama o UseCase
       const finalizedTicket = await this.checkOutTicketUseCase.execute(
-        validTicketId,
-        validPaymentMethod,
+        ticketId,
+        payment_method,
       );
 
       return ok(finalizedTicket);

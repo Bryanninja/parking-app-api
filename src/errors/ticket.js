@@ -11,3 +11,10 @@ export class TicketNotFoundError extends Error {
     this.name = 'TicketNotFoundError';
   }
 }
+
+export class TicketAlreadyPaidError extends Error {
+  constructor(ticketId) {
+    super(`Ticket with id: ${ticketId} Alredy Paid.`);
+    this.name = 'TicketAlreadyPaidError';
+  }
+}

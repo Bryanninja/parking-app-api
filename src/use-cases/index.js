@@ -8,3 +8,4 @@ export * from './customer/update-customer-by-id.js';
 export * from './ticket/create-ticket.js';
 export * from './ticket/get-tickets.js';
 export * from './ticket/check-out-ticket.js';
+export * from './ticket/delete-ticket-by-id.js';

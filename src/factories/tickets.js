@@ -1,10 +1,12 @@
 import {
   CheckOutTicketController,
   CreateTicketController,
+  DeleteCustomerByIdController,
   GetTicketsController,
 } from '../controllers/index.js';
 import {
   PostgresCreateTicketRepository,
+  PostgresDeleteTicketByIdRepository,
   PostgresGetCustomerByIdRepository,
   PostgresGetParkedTicketByLicensePlateRepository,
   PostgresGetTicketByIdRepository,
@@ -14,6 +16,7 @@ import {
 import {
   CheckOutTicketUseCase,
   CreateTicketUseCase,
+  DeleteTicketByIdUseCase,
   GetTicketsUseCase,
 } from '../use-cases/index.js';
 
@@ -51,4 +54,17 @@ export const makeCheckOutTicketController = () => {
     checkOutTicketUseCase,
   );
   return ckeckOutTicketController;
+};
+
+export const makeDeleteTicketByIdController = () => {
+  const getTicketByIdRepository = new PostgresGetTicketByIdRepository();
+  const deleteTicketByIdRepository = new PostgresDeleteTicketByIdRepository();
+  const deleteTicketByIdUseCase = new DeleteTicketByIdUseCase(
+    deleteTicketByIdRepository,
+    getTicketByIdRepository,
+  );
+  const deleteTicketByIdController = new DeleteCustomerByIdController(
+    deleteTicketByIdUseCase,
+  );
+  return deleteTicketByIdController;
 };

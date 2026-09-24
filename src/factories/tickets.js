@@ -1,7 +1,7 @@
 import {
   CheckOutTicketController,
   CreateTicketController,
-  DeleteCustomerByIdController,
+  DeleteTicketByIdController,
   GetTicketsController,
 } from '../controllers/index.js';
 import {
@@ -63,7 +63,7 @@ export const makeDeleteTicketByIdController = () => {
     deleteTicketByIdRepository,
     getTicketByIdRepository,
   );
-  const deleteTicketByIdController = new DeleteCustomerByIdController(
+  const deleteTicketByIdController = new DeleteTicketByIdController(
     deleteTicketByIdUseCase,
   );
   return deleteTicketByIdController;

@@ -6,7 +6,7 @@ import {
 } from '../../errors/ticket.js';
 import { badRequest, ok, serverError } from '../../helpers/http.js';
 import {
-  checkOutTicketParamsSchema,
+  ticketIdParamSchema,
   checkOutTicketSchema,
 } from '../../schemas/ticket-schema.js';
 
@@ -18,7 +18,7 @@ export class CheckOutTicketController {
   async execute(httpRequest) {
     try {
       //validação com zod, params and body
-      const { ticketId } = checkOutTicketParamsSchema.parse(httpRequest.params);
+      const { ticketId } = ticketIdParamSchema.parse(httpRequest.params);
       const { payment_method } = checkOutTicketSchema.parse(httpRequest.body);
 
       // 2. Chama o UseCase

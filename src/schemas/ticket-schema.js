@@ -24,14 +24,14 @@ export const createTicketSchema = z.object({
     }),
 });
 
-export const checkOutTicketParamsSchema = z.object({
-  ticketId: z.uuid({ error: 'The id has to be a valid UUID.' }),
-});
-
 export const checkOutTicketSchema = z.object({
   payment_method: z
     .enum(['CASH', 'CARD', 'PIX'], {
       error: 'The payment methods allowed are: CASH, CARD or PIX.',
     })
     .optional(),
+});
+
+export const ticketIdParamSchema = z.object({
+  ticketId: z.uuid({ message: 'The Ticket id has to be a valid UUID.' }),
 });

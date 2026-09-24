@@ -1,7 +1,7 @@
 import z from 'zod';
 import { CustomerNotFoundError } from '../../errors/customer.js';
 import { badRequest, ok, serverError } from '../../helpers/http.js';
-import { deleteCustomerParamsSchema } from '../../schemas/customer-schema.js';
+import { customerIdParamSchema } from '../../schemas/customer-schema.js';
 
 export class DeleteCustomerByIdController {
   constructor(deleteCustomerByIdUseCase) {
@@ -10,9 +10,7 @@ export class DeleteCustomerByIdController {
 
   async execute(httpRequest) {
     try {
-      const { customerId } = deleteCustomerParamsSchema.parse(
-        httpRequest.params,
-      );
+      const { customerId } = customerIdParamSchema.parse(httpRequest.params);
 
       const deletedCustomer =
         await this.deleteCustomerByIdUseCase.execute(customerId);

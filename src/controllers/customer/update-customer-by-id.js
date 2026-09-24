@@ -6,7 +6,7 @@ import {
 import { badRequest, ok, serverError } from '../../helpers/http.js';
 import {
   updateCustomerSchema,
-  updateCustomerParamsSchema,
+  customerIdParamSchema,
 } from '../../schemas/customer-schema.js';
 
 export class UpdateCustomerByIdController {
@@ -17,9 +17,7 @@ export class UpdateCustomerByIdController {
   async execute(httpRequest) {
     try {
       // 1. Valida o ID que veio na URL
-      const { customerId } = updateCustomerParamsSchema.parse(
-        httpRequest.params,
-      );
+      const { customerId } = customerIdParamSchema.parse(httpRequest.params);
 
       // 2. Valida o body que veio no JSON
       const updateCustomerParams = updateCustomerSchema.parse(httpRequest.body);

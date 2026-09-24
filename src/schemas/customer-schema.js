@@ -19,10 +19,6 @@ export const createCustomerSchema = z.object({
     .optional(),
 });
 
-export const deleteCustomerParamsSchema = z.object({
-  customerId: z.uuid({ error: 'The Customer id has to be a valid UUID.' }),
-});
-
 export const updateCustomerSchema = z
   .object({
     name: z
@@ -44,6 +40,7 @@ export const updateCustomerSchema = z
   .refine((data) => Object.keys(data).length > 0, {
     error: 'At least one field must be informed.',
   });
-export const updateCustomerParamsSchema = z.object({
+
+export const customerIdParamSchema = z.object({
   customerId: z.uuid({ message: 'The Customer id has to be a valid UUID.' }),
 });

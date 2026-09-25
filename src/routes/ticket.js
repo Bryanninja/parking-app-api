@@ -16,7 +16,7 @@ ticketsRouter.post('/', async (req, res) => {
 
 ticketsRouter.get('/', async (req, res) => {
   const getTicketsController = makeGetTicketsController();
-  const { statusCode, body } = await getTicketsController.execute();
+  const { statusCode, body } = await getTicketsController.execute(req);
   res.status(statusCode).json(body);
 });
 

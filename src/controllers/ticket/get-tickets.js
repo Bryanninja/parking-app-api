@@ -4,9 +4,11 @@ export class GetTicketsController {
   constructor(getTicketsUseCase) {
     this.getTicketsUseCase = getTicketsUseCase;
   }
-  async execute() {
+  async execute(httpRequest) {
     try {
-      const tickets = await this.getTicketsUseCase.execute();
+      const queryParams = httpRequest?.query || {};
+
+      const tickets = await this.getTicketsUseCase.execute(queryParams);
       return ok(tickets);
     } catch (error) {
       console.error(error);

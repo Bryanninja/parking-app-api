@@ -35,3 +35,19 @@ export const checkOutTicketSchema = z.object({
 export const ticketIdParamSchema = z.object({
   ticketId: z.uuid({ message: 'The Ticket id has to be a valid UUID.' }),
 });
+
+export const getTicketsQuerySchema = z.object({
+  page: z.coerce.number().int().positive().optional().default(1),
+
+  limit: z.coerce.number().int().positive().max(100).optional().default(10),
+  period: z
+    .enum([
+      'today',
+      'yesterday',
+      'last_7_days',
+      'last_14_days',
+      'this_month',
+      'this_year',
+    ])
+    .optional(),
+});

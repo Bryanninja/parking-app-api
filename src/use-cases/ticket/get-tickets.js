@@ -5,8 +5,7 @@ export class GetTicketsUseCase {
 
   async execute(queryParams = {}) {
     // 1. Converte e define valores padrão
-    const page = queryParams.page;
-    const limit = queryParams.limit;
+    const { page = 1, limit = 10 } = queryParams;
     const skip = (page - 1) * limit; // 2. A fórmula mágica do skip (quantos pular)
 
     let startDate;

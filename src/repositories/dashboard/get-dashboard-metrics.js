@@ -1,6 +1,6 @@
 import { prisma } from '../../lib/prisma.js';
 
-export class PostgresGetDashboardRepository {
+export class PostgresGetDashboardMetricsRepository {
   async execute({ todayStart, todayEnd, yesterdayStart, yesterdayEnd }) {
     const [todayTickets, yesterdayTicketsCount, yesterdayRevenueResult] =
       await Promise.all([

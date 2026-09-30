@@ -13,3 +13,6 @@ export * from './ticket/get-tickets.js';
 export * from './ticket/get-ticket-by-id.js';
 export * from './ticket/update-ticket-by-id.js';
 export * from './ticket/delete-ticket-by-id.js';
+
+//dashboard
+export * from './dashboard/get-dashboard-metrics.js';

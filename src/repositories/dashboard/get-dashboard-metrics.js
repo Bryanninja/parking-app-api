@@ -4,7 +4,7 @@ export class PostgresGetDashboardMetricsRepository {
   async execute({ todayStart, todayEnd, yesterdayStart, yesterdayEnd }) {
     const [todayTickets, yesterdayTicketsCount, yesterdayRevenueResult] =
       await Promise.all([
-        // 1. Busca os tickets de hoje (com total_price e status para somarmos no UseCase!)
+        // 1. Busca os tickets de hoje (com total_amount e status para somarmos no UseCase!)
         prisma.ticket.findMany({
           where: {
             created_at: {
@@ -15,7 +15,7 @@ export class PostgresGetDashboardMetricsRepository {
           select: {
             id: true,
             created_at: true,
-            total_price: true,
+            total_amount: true,
             status: true,
           },
         }),
@@ -40,7 +40,7 @@ export class PostgresGetDashboardMetricsRepository {
             status: 'PAID',
           },
           _sum: {
-            total_price: true,
+            total_amount: true,
           },
         }),
       ]);
@@ -48,7 +48,7 @@ export class PostgresGetDashboardMetricsRepository {
     return {
       todayTickets,
       yesterdayTicketsCount,
-      yesterdayRevenue: Number(yesterdayRevenueResult._sum?.total_price) || 0,
+      yesterdayRevenue: Number(yesterdayRevenueResult._sum?.total_amount) || 0,
     };
   }
 }
